@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/kubernetes/ingress-nginx
-    targetRevision: HEAD # Remplacez par la branche ou le commit souhaité
+    targetRevision: HEAD
     path: deploy/static/provider/baremetal/
   destination:
     server: https://kubernetes.default.svc
