@@ -6,12 +6,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/kubernetes/ingress-nginx
-    targetRevision: HEAD
-    path: deploy/static/provider/baremetal/
+    chart: nginx
+    repoURL: registry-1.docker.io/bitnamicharts  
+    targetRevision: 18.3.1
   destination:
     server: https://kubernetes.default.svc
-    namespace: kube-system
+    namespace: nginx-ingress
   syncPolicy:
     automated:
       prune: true
