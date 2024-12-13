@@ -10,7 +10,7 @@ talos:
   version: v1.8.3
 features:
   enableWorkloadProxy: true
-  diskEncryption: true
+  diskEncryption: false
   useEmbeddedDiscoveryService: true
 patches:
   - name: enable-workload

@@ -36,7 +36,6 @@ spec:
     syncOptions:
       - CreateNamespace=true
 ---
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -63,3 +62,22 @@ spec:
       selfHeal: true    
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault-resources
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/qjoly/homelab
+    targetRevision: main
+    path: home/system/vault
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vault
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
