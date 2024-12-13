@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: oci://ghcr.io/nginxinc/charts
-    chart: nginx-ingress
-    targetRevision: 1.4.2
+    repoURL: https://github.com/kubernetes/ingress-nginx
+    targetRevision: HEAD # Remplacez par la branche ou le commit souhaité
+    path: deploy/static/provider/baremetal/
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
