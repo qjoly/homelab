@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kyoo
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/qjoly/Kyoo
+    targetRevision: all-or-nothing
+    path: chart
+    helm:
+      values: |
+         volumes:
+           media:
+             existingClaim: ""
+             name: "media"
+             accessModes:
+               - "ReadWriteMany" # Longhorn compatibility (dev purpose)
+         ingress:
+           host: kyoo.une-pause-cafe.fr
+           extraAnnotations:
+             - cert-manager.io/cluster-issuer: infomaniak
+           tls: true
+           tlsSecret: kyoo-tls
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kyoo
+  syncPolicy:
+    automated:
+      prune: true 
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
