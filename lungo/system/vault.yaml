@@ -18,7 +18,7 @@ spec:
             raft:
               enabled: true
         injector:
-          enabled: false
+          enabled: true
         csi:
           enabled: true
         ui:
@@ -35,4 +35,31 @@ spec:
       selfHeal: true    
     syncOptions:
       - CreateNamespace=true
+---
 
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault-secrets-operator
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://helm.releases.hashicorp.com
+    chart: vault-secrets-operator
+    targetRevision: 0.9.1
+    helm:
+      values: |
+        defaultVaultConnection:
+          enabled: true
+          address: "http://vault.vault.svc.cluster.local:8200"
+          skipTLSVerify: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vault
+  syncPolicy:
+    automated:
+      prune: true       
+      selfHeal: true    
+    syncOptions:
+      - CreateNamespace=true
